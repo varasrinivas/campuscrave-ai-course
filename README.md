@@ -5,8 +5,18 @@ an orientation and a capstone, built around one small app and two real repositor
 
 ## Start here
 
-Open **`index.html`** in a browser. That's the whole player — one file, no build step, no
-install, nothing to run. It opens on Episode 0.
+Get this repository onto your machine, then open **`index.html`** from your own disk:
+
+```bash
+git clone https://github.com/varasrinivas/campuscrave-ai-course
+cd campuscrave-ai-course
+```
+
+Then double-click `index.html`, or open it with `File → Open` in any browser. That's the
+whole player — one file, no build step, no install, nothing to run. It opens on Episode 0.
+
+> **Don't try to watch it from the GitHub page.** Clicking `index.html` up there shows you
+> the source code, not the course. It has to be a local file.
 
 ## The two repositories
 
