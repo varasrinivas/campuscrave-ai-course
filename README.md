@@ -18,6 +18,10 @@ whole player — one file, no build step, no install, nothing to run. It opens o
 > **Don't try to watch it from the GitHub page.** Clicking `index.html` up there shows you
 > the source code, not the course. It has to be a local file.
 
+Everything in the player is inside that file — no build, no server, nothing fetched while
+you read. The one exception is the typefaces, which come from Google Fonts: offline the
+course works exactly the same and simply falls back to your system fonts.
+
 ## The two repositories
 
 The course is not a tutorial with snippets. You work in two real codebases that ship in
