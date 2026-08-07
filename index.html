@@ -9607,6 +9607,14 @@ const EPISODES = [
       },
       {
         "t": "h",
+        "text": "And the same key, leaking a second way"
+      },
+      {
+        "t": "p",
+        "html": "Rotation deals with what is in the repository. It does not deal with this: <span class=\"mono\">PaymentMockService.java:24</span> writes the key into the application log on <em>every single top-up</em> — <span class=\"mono\">\"Authorising top-up of Rs.{} for student {} with key {}\"</span>. You can watch it happen: it is in the output of the test suite you have run a dozen times. That is worse than the committed copy in one specific way — <strong>rotating the key does not fix it.</strong> The new key leaks exactly like the old one, into logs that get shipped to a log service, printed in CI output, and shown on a screen share. <strong>A secret belongs in exactly one place: the thing that uses it.</strong> Never in a message about the thing that uses it."
+      },
+      {
+        "t": "h",
         "text": "The file you paste carries everything in it"
       },
       {
@@ -9745,7 +9753,7 @@ const EPISODES = [
       ],
       "note": "The paste check is uncomfortable on purpose. Everyone has done it; the people who stop doing it are the ones who noticed once."
     },
-    "verify": "Two proofs, both by hand, and neither can be delegated. <strong>One:</strong> run <span class=\"mono\">./hints/repro/BUG-03.sh</span> and watch a ₹90 biryani go through for ₹1. Fix the server so it recomputes from its own prices, run it again, and watch the same request refused — the exploit you have been carrying since Episode 8, closed while you watch. <strong>Two:</strong> delete the secret line, commit it, then run <span class=\"mono\">git log -S \"pk_live_canteen\" --oneline</span> once more. It is still there, in a commit from thirty-six days ago, and it always will be. That's the moment the word <em>rotate</em> stops being vocabulary and becomes the only thing on the list that matters.",
+    "verify": "Two proofs, both by hand, and neither can be delegated. <strong>One:</strong> run <span class=\"mono\">./hints/repro/BUG-03.sh</span> and watch a ₹90 biryani go through for ₹1. Fix the server so it recomputes from its own prices, run it again, and watch the same request refused — the exploit you have been carrying since Episode 8, closed while you watch. <strong>Two:</strong> delete the secret line, commit it, then run <span class=\"mono\">git log -S \"pk_live_canteen\" --oneline</span> once more. It is still there, in a commit from thirty-six days ago, and it always will be. That's the moment the word <em>rotate</em> stops being vocabulary and becomes the only thing on the list that matters. <strong>Three:</strong> run <span class=\"mono\">./mvnw test</span> and read the output rather than the result. The key you just rotated is printed there in full, from <span class=\"mono\">PaymentMockService.java:24</span>, on every top-up — including the one in the test suite you have run all season without looking. Rotation cannot reach a leak like that: the <em>new</em> key prints exactly the same way. Fix it by logging that a top-up was authorised and nothing about what authorised it, then run the suite again and confirm the log still tells you what happened and no longer tells you the secret.",
     "explainBack": "To a hostel-mate: why deleting a password from a file does not remove the password — and what you would actually do first if you found one tonight.",
     "stretch": "Add a secret-scan step to the pipeline you built yesterday: a grep for key-shaped strings that fails the run. It will be the first check in that workflow that would have caught something real, and it takes about four lines. Then write the two-line checklist you'll actually reread — one line for what you commit, one for what you paste."
   },
