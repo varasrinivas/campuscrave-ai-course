@@ -10955,7 +10955,7 @@ function episodeHTML(ep){
   <div class="beat">Beat 3 · Your move</div>
   <h2>${esc(ep.yourMove.heading)}</h2>
   ${ep.yourMove.intro ? `<p>${ep.yourMove.intro}</p>` : ''}
-  ${ep.yourMove.choices.map(c => `<button class="choice" data-v="${c.id}"><b>${esc(c.title)}</b>${esc(c.desc)}</button>`).join('')}
+  ${orderChoices(ep).map(c => `<button class="choice" data-v="${c.id}"><b>${esc(c.title)}</b>${esc(c.desc)}</button>`).join('')}
   <div class="verdict"><div class="tag"></div><p class="vtext" style="margin:0"></p></div>
   ${labHTML(ep.lab)}
   ${ep.transferable ? `<div class="transfer"><div class="tag">The transferable idea</div><h3>${esc(ep.transferable.title)}</h3><p>${ep.transferable.html}</p></div>` : ''}
@@ -11009,6 +11009,20 @@ function orientationHTML(ep){
     ${blocks(part.body)}
   </div></div></section>`).join('')}
   <div style="height:80px"></div>`;
+}
+
+/* Episode files list the choices mistake-first (BLUEPRINT rule 2: show the
+   mistake first), which is right for reading and authoring — but it put the
+   correct answer last in all 44 episodes, so position alone gave it away.
+   Reorder per episode instead: deterministic, so a cohort all see the same
+   thing and can talk about it, and stable across replays. Verdict text is
+   self-contained and the click handler looks choices up by id, so rotating
+   them is safe. */
+function orderChoices(ep){
+  const c = ep.yourMove.choices;
+  if (!c || c.length < 2) return c;
+  const shift = (ep.num * 7 + 3) % c.length;      // varies by episode, fixed per episode
+  return c.map((_, i) => c[(i + shift) % c.length]);
 }
 
 /* the season's last CTA lands here — not an unshot episode, the thing the
