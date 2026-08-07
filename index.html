@@ -7821,6 +7821,12 @@ const EPISODES = [
             "text": "./mvnw spring-boot:run"
           }
         ]
+      },
+      {
+        "t": "callout",
+        "tone": "sodium",
+        "tag": "Run the repro before anything else",
+        "html": "Tonight's race only shows itself on a <strong>freshly started server</strong>. While the API is still warming up, its first few requests are slow enough for several to overlap; once it is warm each one finishes too fast to collide, the shelf lands on a tidy zero and there is nothing to see. So start the API, run <span class=\"mono\">./hints/repro/BUG-01.sh</span> straight away, and if the result looks boring — restart the API and run it again. <strong>A bug that needs the right conditions is still a bug</strong>, and knowing which conditions is half of reproducing it."
       }
     ],
     "manual": [
